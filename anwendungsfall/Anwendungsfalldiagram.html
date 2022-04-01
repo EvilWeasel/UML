@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Anwendungsfalldiagram.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="anwendungsfalldiagram--use-case-diagram">Anwendungsfalldiagram | Use-Case-Diagram</h1>
+<h2 id="table-of-content">Table of Content</h2>
+<ul>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#basics">Basics</a></li>
+<li><a href="#beziehungen">Beziehungen</a></li>
+<li><a href="#beispiele">Beispiele</a></li>
+</ul>
+<h2 id="intro">Intro</h2>
+<p>Das Anwendungsfalldiagramm, oder auch Nutzfalldiagramm, wird genutzt um Anwendungsfälle und deren Akteure mit ihren jeweiligen Abhängigkeiten und Beziehungen darzustellen.</p>
+<p>Es zählt zur Gruppe der Verhaltensdiagramme und stellt das <strong>erwartete</strong> Verhalten eines Systems dar. Das Diagramm soll dabei helfen, die Anforderungen an ein System sichtbar zu machen und zu definieren.
+In einem Anwendungsfalldiagramm ist die Ablaufsreihenfolge daher nicht relevant und wird in anderen Diagrammen dargestellt.</p>
+<h2 id="basics">Basics</h2>
+<p>UML Anwendungsfalldiagramme werden verwendet um:</p>
+<ul>
+<li>Ziele der User-Interaktionen im System festzulegen.</li>
+<li>Funktionale Anforderungen an das System zu definieren.</li>
+<li>Das Umfeld um das System herum besser zu verstehen.</li>
+</ul>
+<h3 id="komponenten">Komponenten</h3>
+<p>Unter Komponenten verstehen wir die einzelnen Bausteine, die verwendet werden um das Diagramm in frage darzustellen.</p>
+<ul>
+<li>
+<p>Actor</p>
+<ul>
+<li>Benutzer der mit dem System interagiert</li>
+<li>Kann Person / Organisation / System sein</li>
+</ul>
+</li>
+<li>
+<p>System</p>
+<ul>
+<li>Eine Sequenz von Aktionen und Interaktionen</li>
+<li>Kann auch als Szenario bezeichnet werden</li>
+<li>Context für die Inter-/Aktionen</li>
+</ul>
+</li>
+<li>
+<p>Use-Case / Anwendungsfall</p>
+<ul>
+<li>Werden als Ellipse dargestellt</li>
+<li>Ist ein Vorgang, angestoßen durch einen Actor</li>
+<li>Können Generalisiert / Vererbt werden</li>
+</ul>
+</li>
+</ul>
+<p><img src="overview.png" alt="overview"></p>
+<h2 id="beziehungen">Beziehungen</h2>
+<p>Beziehungen zwischen Akteuren und Use-Cases werden mit Verbindungslinien gekennzeichnet.</p>
+<h3 id="durchgezogene-linie">Durchgezogene Linie</h3>
+<p>Eine durchgezogene Linie zwischen Akteur und Use-Case offenbart eine Beziehung zwischen beiden.</p>
+<p><img src="basic.png" alt="basic"></p>
+<h3 id="gestrichelte-linie">Gestrichelte Linie</h3>
+<p>Beziehungen die durch eine gestrichelte Linie gekennzeichnet werden, können verschiedene Assoziationsarten darstellen:</p>
+<h4 id="include-assoziation">include-Assoziation</h4>
+<p>Der Fall A, von dem die Linie ausgeht, bindet den Fall B, zu dem die Pfeilspitze zeigt mit ein.</p>
+<p><img src="includes.png" alt="includes"></p>
+<h4 id="extend-assoziation">extend-Assoziation</h4>
+<p>Der Fall A, auf den die Pfeilspitze zeigt, <strong>kann</strong> den Fall B, von dem die Linie ausgeht, unter bestimmten Bedingungen mit einbinden.</p>
+<p><img src="extends.png" alt="extends"></p>
+<p>Da die Ausführung bei einer extend-Assoziation immer von einer Bedingung abhängig ist, muss diese Bedingung als Erweiterungspunkt / Extension-Point dargestellt werden.</p>
+<p><img src="extension-point.png" alt="extension-point"></p>
+<p>Wie im oberen Bild zu sehen ist, wird bei einer Extension, die ja an eine Bedingung gebunden ist, diese als Notiz beigefügt.</p>
+<h2 id="beispiele">Beispiele</h2>
+<h3 id="webseiten-authentifizierung-%F0%9F%94%92">Webseiten-Authentifizierung 🔒</h3>
+<h4 id="aufgabe-datenkrake">Aufgabe: Datenkrake</h4>
+<p>Sie arbeiten für die Firma Datenkrake AG. Ihre Firma möchte von Ihnen ein ein Anwendungsfalldiagram für die neue Firmenseite. Sie bekommen folgende Informationen über geplante Funktionalität der Webseite:</p>
+<ul>
+<li>Jeder Besucher der die Seite aufruft, soll auf das Produktportfolio und auf die AGBs zugreifen können</li>
+<li>Besucher mit Kundenkonto sollen zusätzlich Reservierungsanfragen stellen können</li>
+<li>Besucher mit Kundenkonto sollen außerdem Zugriff auf Buchungen und Stornierungen haben, nachdem sie sich authorisiert (Angemeldet) haben. Falls kein Benutzerkonto vorhanden ist, soll außerdem die Möglichkeit geboten werden sich zu Registrieren.</li>
+</ul>
+<p>Sie dürfen über die Aufgabenstellung hinaus weitere angemessene Annahmen selbst treffen.</p>
+<h4 id="l%C3%B6sung-datenkrake">Lösung Datenkrake</h4>
+<details>
+  <summary>Lösung anzeigen</summary>
+    <img src="exDatenKrake.svg">
+    ![krake](exDatenKrake.svg)
+</details>
+<h3 id="restaurant-%F0%9F%8D%BD%EF%B8%8F">Restaurant 🍽️</h3>
+<p>Zeitrahmen: 60 Minuten</p>
+<h4 id="aufgabe-restaurant---kreative-aufgabe">Aufgabe: Restaurant - Kreative Aufgabe</h4>
+<p>Erstellen Sie ein Anwendungsfalldiagramm für typische Prozesse in einem Restaurant.️</p>
+<ul>
+<li>Mindestens 3 Akteure</li>
+<li>Mindestens 4 Anwendungsfälle</li>
+<li>Mindestens jeweils einen Anwendungsfall mit include und extend</li>
+</ul>
+<p>Sie dürfen bei dieser Aufgabe Ihrer Kreativität freien lauf lassen und eigene Annahmen treffen. Mut zu Lücke! 🚀</p>
+<h4 id="l%C3%B6sung-restaurant">Lösung Restaurant</h4>
+<details>
+  <summary>Lösung anzeigen</summary>
+    <img src="exRestaurant.svg">
+    ![restaurant](exRestaurant.svg)
+</details>
+</body>
+</html>
